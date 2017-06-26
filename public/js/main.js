@@ -1,12 +1,15 @@
 var board,
     game = new Chess();
 
-// Alert if game over
+// Actions after any move
 var onChange = function(oldPos, newPos) {
+  // Alert if game is over
   if (game.game_over() === true) {
     alert('Game Over');
     console.log('Game Over');
   }
+
+  // Log the current game position
   console.log(game.fen());
 };
 
