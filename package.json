@@ -1,0 +1,23 @@
+{
+  "name": "chess-ai-2",
+  "version": "0.0.1",
+  "description": "A chess AI, with different iterations and increasing intelligence",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/byanofsky/chess-ai-2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/byanofsky/chess-ai-2/issues"
+  },
+  "homepage": "https://github.com/byanofsky/chess-ai-2#readme",
+  "dependencies": {
+    "chess.js": "^0.10.2",
+    "express": "^4.15.3"
+  }
+}
