@@ -6,18 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/byanofsky/chess-ai-2.git"
-  },
-  "author": "",
+  "repository": "git+https://github.com/byanofsky/chess-ai-2.git",
+  "author": "byanofsky <byanofsky@me.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/byanofsky/chess-ai-2/issues"
   },
   "homepage": "https://github.com/byanofsky/chess-ai-2#readme",
   "dependencies": {
-    "chess.js": "^0.10.2",
-    "express": "^4.15.3"
+    "express": "^4.15.3",
   }
 }
