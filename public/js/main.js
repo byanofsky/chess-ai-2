@@ -34,7 +34,7 @@ var onDrop = function(source, target) {
   console.log(move)
 
   // make random legal move for black
-  window.setTimeout(makeRandomMove, 250);
+  window.setTimeout(makeMove, 250);
 };
 
 // Update the board position after the piece snap
@@ -42,6 +42,16 @@ var onDrop = function(source, target) {
 var onSnapEnd = function() {
   board.position(game.fen());
 };
+
+var cfg = {
+  draggable: true,
+  position: 'start',
+  onChange: onChange,
+  onDragStart: onDragStart,
+  onDrop: onDrop,
+  onSnapEnd: onSnapEnd
+}
+board = ChessBoard('board', cfg);
 
 // Wrapper function for computer moves
 var makeMove = function() {
@@ -60,13 +70,3 @@ var makeRandomMove = function() {
   game.move(possibleMoves[randomIndex]);
   board.position(game.fen());
 };
-
-var cfg = {
-  draggable: true,
-  position: 'start',
-  onChange: onChange,
-  onDragStart: onDragStart,
-  onDrop: onDrop,
-  onSnapEnd: onSnapEnd
-}
-board = ChessBoard('board', cfg);
