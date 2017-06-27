@@ -55,11 +55,13 @@ board = ChessBoard('board', cfg);
 
 // Wrapper function for computer moves
 var makeMove = function() {
-  // makeRandomMove();
-  makeBestMoveOne();
+  // var move = calcRandomMove();
+  var move = calcBestMoveOne();
+  game.move(move);
+  board.position(game.fen());
 }
 
-var makeRandomMove = function() {
+var calcRandomMove = function() {
   var possibleMoves = game.moves();
 
   // exit if the game is over
@@ -68,8 +70,7 @@ var makeRandomMove = function() {
     possibleMoves.length === 0) return;
 
   var randomIndex = Math.floor(Math.random() * possibleMoves.length);
-  game.move(possibleMoves[randomIndex]);
-  board.position(game.fen());
+  return possibleMoves[randomIndex];
 };
 
 // Evaluates current chess board.
@@ -98,7 +99,7 @@ var evaluateBoard = function(board, color) {
   return value;
 };
 
-var makeBestMoveOne = function() {
+var calcBestMoveOne = function() {
   // List all possible moves
   var possibleMoves = game.moves();
   // Sort moves randomly, so the same move isn't always picked on ties
@@ -120,6 +121,5 @@ var makeBestMoveOne = function() {
     game.undo();
   });
 
-  game.move(bestMoveSoFar);
-  board.position(game.fen());
+  return bestMoveSoFar;
 }
