@@ -57,7 +57,8 @@ board = ChessBoard('board', cfg);
 var makeMove = function() {
   // var move = calcRandomMove();
   // var move = calcBestMoveOne();
-  var move = calcBestMoveN(2, game, true)[1];
+  // var move = calcBestMoveN(2, game, true)[1];
+  var move = calcBestMoveNAB(2, game, -9999, 9999, true)[1];
   game.move(move);
   board.position(game.fen());
 }
@@ -152,5 +153,61 @@ var calcBestMoveN = function(depth, game, isMaximizingPlayer) {
     game.undo();
   });
   console.log('Depth: ' + depth + ' | Best Move: ' + bestMove + ' | ' + bestMoveValue);
+  return [bestMoveValue, bestMove];
+}
+
+var calcBestMoveNAB = function(depth, game, alpha, beta, isMaximizingPlayer) {
+  // Base case: return current board position
+  if (depth === 0) {
+    value = evaluateBoard(game.board(), 'b');
+    return [value, null]
+  }
+
+  var bestMove = null;
+  var possibleMoves = game.moves();
+  // Randomize possible moves
+  possibleMoves.sort(function(a, b){return 0.5 - Math.random()});
+
+  if (isMaximizingPlayer) {
+    // Set a default best move value
+    var bestMoveValue = -9999;
+    for (var i = 0; i < possibleMoves.length; i++) {
+      var move = possibleMoves[i];
+      game.move(move);
+      value = calcBestMoveNAB(depth-1, game, alpha, beta, !isMaximizingPlayer)[0];
+      console.log('Max: ', depth, move, value, bestMove, bestMoveValue);
+      // Assign best move if is appropriate for player position
+      if (value > bestMoveValue) {
+        bestMoveValue = value;
+        bestMove = move;
+      }
+      alpha = Math.max(alpha, value);
+      game.undo();
+      if (beta <= alpha) {
+        console.log('Prune', alpha, beta);
+        break;
+      }
+    }
+  } else {
+    var bestMoveValue = 9999;
+    for (var i = 0; i < possibleMoves.length; i++) {
+      var move = possibleMoves[i];
+      game.move(move);
+      value = calcBestMoveNAB(depth-1, game, alpha, beta, !isMaximizingPlayer)[0];
+      console.log('Min: ', depth, move, value, bestMove, bestMoveValue);
+      // Assign best move if is appropriate for player position
+      if (value < bestMoveValue) {
+        bestMoveValue = value;
+        bestMove = move;
+      }
+      beta = Math.min(beta, value);
+      game.undo();
+      if (beta <= alpha) {
+        console.log('Prune', beta, alpha);
+        break;
+      }
+    };
+  }
+  console.log('Depth: ' + depth + ' | Best Move: ' + bestMove + ' | ' + bestMoveValue + ' | A: ' + alpha + ' | B: ' + beta);
   return [bestMoveValue, bestMove];
 }
