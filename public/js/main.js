@@ -56,7 +56,8 @@ board = ChessBoard('board', cfg);
 // Wrapper function for computer moves
 var makeMove = function() {
   // var move = calcRandomMove();
-  var move = calcBestMoveOne();
+  // var move = calcBestMoveOne();
+  var move = calcBestMoveN(2, game, true)[1];
   game.move(move);
   board.position(game.fen());
 }
@@ -122,4 +123,34 @@ var calcBestMoveOne = function() {
   });
 
   return bestMoveSoFar;
+}
+
+var calcBestMoveN = function(depth, game, isMaximizingPlayer) {
+  // Base case: return current board position
+  if (depth === 0) {
+    value = evaluateBoard(game.board(), 'b');
+    return [value, null]
+  }
+
+  var bestMove = null;
+  var possibleMoves = game.moves();
+  // Randomize possible moves
+  possibleMoves.sort(function(a, b){return 0.5 - Math.random()});
+  // Set a default best move value
+  var bestMoveValue = isMaximizingPlayer ? -9999 : 9999;
+  possibleMoves.forEach(function(move) {
+    game.move(move);
+    value = calcBestMoveN(depth-1, game, !isMaximizingPlayer)[0];
+    console.log(isMaximizingPlayer ? 'Max: ' : 'Min: ', depth, move,
+                value, bestMove, bestMoveValue);
+    // Assign best move if is appropriate for player position
+    if ((isMaximizingPlayer && value > bestMoveValue)
+        || (!isMaximizingPlayer && value < bestMoveValue)) {
+      bestMoveValue = value;
+      bestMove = move;
+    }
+    game.undo();
+  });
+  console.log('Depth: ' + depth + ' | Best Move: ' + bestMove + ' | ' + bestMoveValue);
+  return [bestMoveValue, bestMove];
 }
