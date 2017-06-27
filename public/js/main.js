@@ -58,7 +58,7 @@ var makeMove = function() {
   // var move = calcRandomMove();
   // var move = calcBestMoveOne();
   // var move = calcBestMoveN(2, game, true)[1];
-  var move = calcBestMoveNAB(2, game, -9999, 9999, true)[1];
+  var move = calcBestMoveNAB(2, game, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, true)[1];
   game.move(move);
   board.position(game.fen());
 }
@@ -80,12 +80,12 @@ var calcRandomMove = function() {
 var evaluateBoard = function(board, color) {
   // Sets the value for each piece
   var pieceValue = {
-    'p': 10,
-    'n': 30,
-    'b': 30,
-    'r': 50,
-    'q': 90,
-    'k': 900
+    'p': 100,
+    'n': 300,
+    'b': 300,
+    'r': 500,
+    'q': 900,
+    'k': 9000
   };
 
   var value = 0;
@@ -111,7 +111,7 @@ var calcBestMoveOne = function() {
   if (game.game_over() === true || possibleMoves.length === 0) return;
 
   var bestMoveSoFar = null;
-  var bestMoveValue = -9999;
+  var bestMoveValue = Number.NEGATIVE_INFINITY;
 
   possibleMoves.forEach(function(move) {
     game.move(move);
@@ -138,7 +138,7 @@ var calcBestMoveN = function(depth, game, isMaximizingPlayer) {
   // Randomize possible moves
   possibleMoves.sort(function(a, b){return 0.5 - Math.random()});
   // Set a default best move value
-  var bestMoveValue = isMaximizingPlayer ? -9999 : 9999;
+  var bestMoveValue = isMaximizingPlayer ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
   possibleMoves.forEach(function(move) {
     game.move(move);
     value = calcBestMoveN(depth-1, game, !isMaximizingPlayer)[0];
@@ -170,7 +170,7 @@ var calcBestMoveNAB = function(depth, game, alpha, beta, isMaximizingPlayer) {
 
   if (isMaximizingPlayer) {
     // Set a default best move value
-    var bestMoveValue = -9999;
+    var bestMoveValue = Number.NEGATIVE_INFINITY;
     for (var i = 0; i < possibleMoves.length; i++) {
       var move = possibleMoves[i];
       game.move(move);
@@ -189,7 +189,7 @@ var calcBestMoveNAB = function(depth, game, alpha, beta, isMaximizingPlayer) {
       }
     }
   } else {
-    var bestMoveValue = 9999;
+    var bestMoveValue = Number.POSITIVE_INFINITY;
     for (var i = 0; i < possibleMoves.length; i++) {
       var move = possibleMoves[i];
       game.move(move);
