@@ -55,7 +55,8 @@ board = ChessBoard('board', cfg);
 
 // Wrapper function for computer moves
 var makeMove = function() {
-  makeRandomMove();
+  // makeRandomMove();
+  makeBestMoveOne();
 }
 
 var makeRandomMove = function() {
@@ -70,3 +71,55 @@ var makeRandomMove = function() {
   game.move(possibleMoves[randomIndex]);
   board.position(game.fen());
 };
+
+// Evaluates current chess board.
+// Takes a 2D array represneting board, and the color of the player to evaluate.
+var evaluateBoard = function(board, color) {
+  // Sets the value for each piece
+  var pieceValue = {
+    'p': 10,
+    'n': 30,
+    'b': 30,
+    'r': 50,
+    'q': 90,
+    'k': 900
+  };
+
+  var value = 0;
+  // Loop through all pieces on the board and sum up total
+  board.forEach(function(row) {
+    row.forEach(function(piece) {
+      if (piece) {
+        value += pieceValue[piece['type']]
+                 * (piece['color'] === color ? 1 : -1);
+      }
+    });
+  });
+  return value;
+};
+
+var makeBestMoveOne = function() {
+  // List all possible moves
+  var possibleMoves = game.moves();
+  // Sort moves randomly, so the same move isn't always picked on ties
+  possibleMoves.sort(function(a, b){return 0.5 - Math.random()});
+
+  // exit if the game is over
+  if (game.game_over() === true || possibleMoves.length === 0) return;
+
+  var bestMoveSoFar = null;
+  var bestMoveValue = -9999;
+
+  possibleMoves.forEach(function(move) {
+    game.move(move);
+    var moveValue = evaluateBoard(game.board(), 'b');
+    if (moveValue > bestMoveValue) {
+      bestMoveSoFar = move;
+      bestMoveValue = moveValue;
+    }
+    game.undo();
+  });
+
+  game.move(bestMoveSoFar);
+  board.position(game.fen());
+}
