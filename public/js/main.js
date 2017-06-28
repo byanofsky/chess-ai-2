@@ -55,10 +55,13 @@ board = ChessBoard('board', cfg);
 
 // Wrapper function for computer moves
 var makeMove = function() {
-  // var move = calcRandomMove();
+  // exit if the game is over
+  if (game.game_over() === true) return;
+
+  var move = calcRandomMove();
   // var move = calcBestMoveOne();
   // var move = calcBestMoveN(2, game, true)[1];
-  var move = calcBestMoveNAB(2, game, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, true)[1];
+  // var move = calcBestMoveNAB(2, game, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, true)[1];
   game.move(move);
   board.position(game.fen());
 }
