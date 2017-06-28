@@ -10,11 +10,11 @@ var evaluateBoard = function(board, color) {
   // Sets the value for each piece
   var pieceValue = {
     'p': 100,
-    'n': 300,
-    'b': 300,
-    'r': 500,
-    'q': 900,
-    'k': 9000
+    'n': 350,
+    'b': 350,
+    'r': 525,
+    'q': 1000,
+    'k': 10000
   };
 
   var value = 0;
