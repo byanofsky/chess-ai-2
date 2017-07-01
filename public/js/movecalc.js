@@ -44,7 +44,7 @@ var calcBestMoveOne = function(playerColor) {
 
   possibleMoves.forEach(function(move) {
     game.move(move);
-    var moveValue = evaluateBoard(game.board(), 'b');
+    var moveValue = evaluateBoard(game.board(), playerColor);
     if (moveValue > bestMoveValue) {
       bestMoveSoFar = move;
       bestMoveValue = moveValue;
