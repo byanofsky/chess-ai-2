@@ -58,10 +58,17 @@ var makeMove = function() {
   // exit if the game is over
   if (game.game_over() === true) return;
 
-  var move = calcRandomMove();
-  // var move = calcBestMoveOne();
+  // var move = calcRandomMove();
+  var move = calcBestMoveOne(game.turn());
   // var move = calcBestMoveN(2, game, true)[1];
   // var move = calcBestMoveNAB(2, game, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, true)[1];
   game.move(move);
   board.position(game.fen());
 }
+
+var playGame = function() {
+  makeMove();
+  window.setTimeout(playGame, 50);
+};
+
+playGame();
