@@ -58,7 +58,7 @@ var calcBestMoveOne = function(playerColor) {
 var calcBestMoveN = function(depth, game, isMaximizingPlayer) {
   // Base case: return current board position
   if (depth === 0) {
-    value = evaluateBoard(game.board(), 'b');
+    value = evaluateBoard(game.board(), game.turn());
     return [value, null]
   }
 
