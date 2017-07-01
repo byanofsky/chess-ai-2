@@ -30,7 +30,7 @@ var evaluateBoard = function(board, color) {
   return value;
 };
 
-var calcBestMoveOne = function() {
+var calcBestMoveOne = function(playerColor) {
   // List all possible moves
   var possibleMoves = game.moves();
   // Sort moves randomly, so the same move isn't always picked on ties
