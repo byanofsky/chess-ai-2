@@ -54,7 +54,7 @@ var cfg = {
 board = ChessBoard('board', cfg);
 
 // Wrapper function for computer moves
-var makeMove = function(skill) {
+var makeMove = function(skill=1) {
   // exit if the game is over
   if (game.game_over() === true) {
     console.log('game over');
