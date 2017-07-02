@@ -104,7 +104,7 @@ var calcBestMoveNAB = function(depth, game, alpha, beta, isMaximizingPlayer) {
       var move = possibleMoves[i];
       game.move(move);
       value = calcBestMoveNAB(depth-1, game, alpha, beta, !isMaximizingPlayer)[0];
-      console.log('Max: ', depth, move, value, bestMove, bestMoveValue);
+      // console.log('Max: ', depth, move, value, bestMove, bestMoveValue);
       // Assign best move if is appropriate for player position
       if (value > bestMoveValue) {
         bestMoveValue = value;
@@ -123,7 +123,7 @@ var calcBestMoveNAB = function(depth, game, alpha, beta, isMaximizingPlayer) {
       var move = possibleMoves[i];
       game.move(move);
       value = calcBestMoveNAB(depth-1, game, alpha, beta, !isMaximizingPlayer)[0];
-      console.log('Min: ', depth, move, value, bestMove, bestMoveValue);
+      // console.log('Min: ', depth, move, value, bestMove, bestMoveValue);
       // Assign best move if is appropriate for player position
       if (value < bestMoveValue) {
         bestMoveValue = value;
@@ -137,6 +137,13 @@ var calcBestMoveNAB = function(depth, game, alpha, beta, isMaximizingPlayer) {
       }
     };
   }
+  // if (possibleMoves.length === 0) {
+  //   console.log('NO POSSIBLE MOVES');
+  // }
+  // if (possibleMoves.length === 1) {
+  //   console.log('ONLY ONE MOVE');
+  //   return [bestMoveValue, possibleMoves[0]];
+  // }
   console.log('Depth: ' + depth + ' | Best Move: ' + bestMove + ' | ' + bestMoveValue + ' | A: ' + alpha + ' | B: ' + beta);
-  return [bestMoveValue, bestMove];
+  return [bestMoveValue, bestMove || possibleMoves[0]];
 }
