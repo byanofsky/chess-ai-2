@@ -141,13 +141,7 @@ var calcBestMove = function(depth, game, playerColor, alpha=Number.NEGATIVE_INFI
       }
     };
   }
-  // if (possibleMoves.length === 0) {
-  //   console.log('NO POSSIBLE MOVES');
-  // }
-  // if (possibleMoves.length === 1) {
-  //   console.log('ONLY ONE MOVE');
-  //   return [bestMoveValue, possibleMoves[0]];
-  // }
+  
   console.log('Depth: ' + depth + ' | Best Move: ' + bestMove + ' | ' + bestMoveValue + ' | A: ' + alpha + ' | B: ' + beta);
   return [bestMoveValue, bestMove || possibleMoves[0]];
 }
