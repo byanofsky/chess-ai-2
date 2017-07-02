@@ -64,7 +64,7 @@ var makeMove = function(skill=1) {
   // var move = randomMove();
   // var move = calcBestMoveOne(game.turn());
   // var move = calcBestMoveN(3, game, true)[1];
-  var move = calcBestMoveNAB(skill, game, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, true)[1];
+  var move = calcBestMove(skill, game, game.turn())[1];
   game.move(move);
   board.position(game.fen());
 }

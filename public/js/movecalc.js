@@ -85,10 +85,14 @@ var calcBestMoveN = function(depth, game, isMaximizingPlayer) {
   return [bestMoveValue, bestMove];
 }
 
-var calcBestMoveNAB = function(depth, game, alpha, beta, isMaximizingPlayer) {
+// Calculate the best move using Minimax with Alpha Beta Pruning.
+// Provide depth and game as params.
+var calcBestMove = function(depth, game, playerColor, alpha=Number.NEGATIVE_INFINITY,
+                               beta=Number.POSITIVE_INFINITY,
+                               isMaximizingPlayer=true) {
   // Base case: return current board position
   if (depth === 0) {
-    value = evaluateBoard(game.board(), game.turn() === 'w' ? 'b' : 'w');
+    value = evaluateBoard(game.board(), playerColor);
     return [value, null]
   }
 
@@ -103,8 +107,8 @@ var calcBestMoveNAB = function(depth, game, alpha, beta, isMaximizingPlayer) {
     for (var i = 0; i < possibleMoves.length; i++) {
       var move = possibleMoves[i];
       game.move(move);
-      value = calcBestMoveNAB(depth-1, game, alpha, beta, !isMaximizingPlayer)[0];
-      // console.log('Max: ', depth, move, value, bestMove, bestMoveValue);
+      value = calcBestMove(depth-1, game, playerColor, alpha, beta, !isMaximizingPlayer)[0];
+      console.log('Max: ', depth, move, value, bestMove, bestMoveValue);
       // Assign best move if is appropriate for player position
       if (value > bestMoveValue) {
         bestMoveValue = value;
@@ -122,8 +126,8 @@ var calcBestMoveNAB = function(depth, game, alpha, beta, isMaximizingPlayer) {
     for (var i = 0; i < possibleMoves.length; i++) {
       var move = possibleMoves[i];
       game.move(move);
-      value = calcBestMoveNAB(depth-1, game, alpha, beta, !isMaximizingPlayer)[0];
-      // console.log('Min: ', depth, move, value, bestMove, bestMoveValue);
+      value = calcBestMove(depth-1, game, playerColor, alpha, beta, !isMaximizingPlayer)[0];
+      console.log('Min: ', depth, move, value, bestMove, bestMoveValue);
       // Assign best move if is appropriate for player position
       if (value < bestMoveValue) {
         bestMoveValue = value;
