@@ -5,8 +5,7 @@ var randomMove = function() {
   return possibleMoves[randomIndex];
 };
 
-// Evaluates current chess board.
-// Takes a 2D array represneting board, and the color of the player to evaluate.
+// Evaluates current chess board relative to player color.
 var evaluateBoard = function(board, color) {
   // Sets the value for each piece
   var pieceValue = {
