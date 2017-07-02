@@ -54,21 +54,35 @@ var cfg = {
 board = ChessBoard('board', cfg);
 
 // Wrapper function for computer moves
-var makeMove = function() {
+var makeMove = function(skill) {
   // exit if the game is over
-  if (game.game_over() === true) return;
+  if (game.game_over() === true) {
+    console.log('game over');
+    return;
+  }
 
   // var move = calcRandomMove();
-  var move = calcBestMoveOne(game.turn());
-  // var move = calcBestMoveN(2, game, true)[1];
-  // var move = calcBestMoveNAB(2, game, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, true)[1];
+  // var move = calcBestMoveOne(game.turn());
+  // var move = calcBestMoveN(3, game, true)[1];
+  var move = calcBestMoveNAB(skill, game, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, true)[1];
   game.move(move);
   board.position(game.fen());
 }
 
 var playGame = function() {
-  makeMove();
-  window.setTimeout(playGame, 50);
+  if (game.game_over() === true) {
+    console.log('game over');
+    return;
+  }
+
+  var skill;
+  if (game.turn() === 'w') {
+    skill = 3;
+  } else {
+    skill = 2;
+  }
+  makeMove(skill);
+  window.setTimeout(playGame, 250);
 };
 
-playGame();
+// playGame();
