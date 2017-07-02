@@ -1,4 +1,5 @@
-var calcRandomMove = function() {
+// Pick a random move to make
+var randomMove = function() {
   var possibleMoves = game.moves();
   var randomIndex = Math.floor(Math.random() * possibleMoves.length);
   return possibleMoves[randomIndex];
