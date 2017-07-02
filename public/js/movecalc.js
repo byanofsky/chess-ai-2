@@ -88,7 +88,7 @@ var calcBestMoveN = function(depth, game, isMaximizingPlayer) {
 var calcBestMoveNAB = function(depth, game, alpha, beta, isMaximizingPlayer) {
   // Base case: return current board position
   if (depth === 0) {
-    value = evaluateBoard(game.board(), game.turn());
+    value = evaluateBoard(game.board(), game.turn() === 'w' ? 'b' : 'w');
     return [value, null]
   }
 
