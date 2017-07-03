@@ -50,11 +50,11 @@ This project is licensed under the Apache-2.0 License - see the [LICENSE](LICENS
 
 See [LICENSE-3RD-PARTY](LICENSE-3RD-PARTY) file for full licenses
 
-- [chess.js](https://github.com/jhlywa/chess.js)
+* [chess.js](https://github.com/jhlywa/chess.js)
 Copyright (c) 2017, Jeff Hlywa (jhlywa@gmail.com)
-- [chessboard.js](https://github.com/oakmac/chessboardjs)
+* [chessboard.js](https://github.com/oakmac/chessboardjs)
 Copyright 2013 Chris Oakman
-- [jQuery](https://github.com/jquery/jquery) Copyright JS Foundation and other contributors, https://js.foundation/
+* [jQuery](https://github.com/jquery/jquery) Copyright JS Foundation and other contributors, https://js.foundation/
 
 ## Todo
 
