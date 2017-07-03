@@ -1,4 +1,4 @@
-# chess-ai-2
+# Chess AI
 A chess AI, with different iterations and increasing intelligence.
 
 ## Getting Started
@@ -55,3 +55,10 @@ Copyright (c) 2017, Jeff Hlywa (jhlywa@gmail.com)
 - [chessboard.js](https://github.com/oakmac/chessboardjs)
 Copyright 2013 Chris Oakman
 - [jQuery](https://github.com/jquery/jquery) Copyright JS Foundation and other contributors, https://js.foundation/
+
+## Todo
+
+* Implement Negamax
+* Implement sorting function for possible moves to optimize alpha beta pruning
+* Better implementation of Express
+* Add an element of machine learning
