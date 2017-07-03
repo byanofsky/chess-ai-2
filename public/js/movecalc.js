@@ -101,47 +101,41 @@ var calcBestMove = function(depth, game, playerColor, alpha=Number.NEGATIVE_INFI
   // Randomize possible moves
   possibleMoves.sort(function(a, b){return 0.5 - Math.random()});
 
-  if (isMaximizingPlayer) {
-    // Set a default best move value
-    var bestMoveValue = Number.NEGATIVE_INFINITY;
-    for (var i = 0; i < possibleMoves.length; i++) {
-      var move = possibleMoves[i];
-      game.move(move);
-      value = calcBestMove(depth-1, game, playerColor, alpha, beta, !isMaximizingPlayer)[0];
-      console.log('Max: ', depth, move, value, bestMove, bestMoveValue);
+  // Set a default best move value
+  var bestMoveValue = isMaximizingPlayer ? Number.NEGATIVE_INFINITY
+                                         : Number.POSITIVE_INFINITY;
+  // Search through all possible moves
+  for (var i = 0; i < possibleMoves.length; i++) {
+    var move = possibleMoves[i];
+    game.move(move);
+    value = calcBestMove(depth-1, game, playerColor, alpha, beta, !isMaximizingPlayer)[0];
+
+    console.log(isMaximizingPlayer ? 'Max: ' : 'Min: ', depth, move, value,
+                bestMove, bestMoveValue);
+
+    if (isMaximizingPlayer) {
       // Assign best move if is appropriate for player position
       if (value > bestMoveValue) {
         bestMoveValue = value;
         bestMove = move;
       }
       alpha = Math.max(alpha, value);
-      game.undo();
-      if (beta <= alpha) {
-        console.log('Prune', alpha, beta);
-        break;
-      }
-    }
-  } else {
-    var bestMoveValue = Number.POSITIVE_INFINITY;
-    for (var i = 0; i < possibleMoves.length; i++) {
-      var move = possibleMoves[i];
-      game.move(move);
-      value = calcBestMove(depth-1, game, playerColor, alpha, beta, !isMaximizingPlayer)[0];
-      console.log('Min: ', depth, move, value, bestMove, bestMoveValue);
+    } else {
       // Assign best move if is appropriate for player position
       if (value < bestMoveValue) {
         bestMoveValue = value;
         bestMove = move;
       }
       beta = Math.min(beta, value);
-      game.undo();
-      if (beta <= alpha) {
-        console.log('Prune', beta, alpha);
-        break;
-      }
-    };
+    }
+
+    game.undo();
+    if (beta <= alpha) {
+      console.log('Prune', alpha, beta);
+      break;
+    }
   }
-  
+
   console.log('Depth: ' + depth + ' | Best Move: ' + bestMove + ' | ' + bestMoveValue + ' | A: ' + alpha + ' | B: ' + beta);
   return [bestMoveValue, bestMove || possibleMoves[0]];
 }
