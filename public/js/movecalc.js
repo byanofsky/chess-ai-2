@@ -5,9 +5,9 @@ var randomMove = function() {
   return possibleMoves[randomIndex];
 };
 
-// Evaluates current chess board relative to player color.
+// Evaluates current chess board relative to player color ('w' or 'b')
 var evaluateBoard = function(board, color) {
-  // Sets the value for each piece
+  // Sets the value for each piece using standard piece value
   var pieceValue = {
     'p': 100,
     'n': 350,
@@ -17,16 +17,18 @@ var evaluateBoard = function(board, color) {
     'k': 10000
   };
 
-  var value = 0;
   // Loop through all pieces on the board and sum up total
+  var value = 0;
   board.forEach(function(row) {
     row.forEach(function(piece) {
       if (piece) {
+        // Subtract piece value if it is opponent's piece
         value += pieceValue[piece['type']]
                  * (piece['color'] === color ? 1 : -1);
       }
     });
   });
+
   return value;
 };
 
