@@ -5,7 +5,11 @@ var randomMove = function() {
   return possibleMoves[randomIndex];
 };
 
-// Evaluates current chess board relative to player color ('w' or 'b')
+/**
+ * Evaluates current chess board relative to player
+ * @param {string} color - Players color, either 'b' or 'w'
+ * @return {Number} board value relative to player
+ */
 var evaluateBoard = function(board, color) {
   // Sets the value for each piece using standard piece value
   var pieceValue = {
