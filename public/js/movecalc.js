@@ -32,6 +32,11 @@ var evaluateBoard = function(board, color) {
   return value;
 };
 
+/**
+ * Calculates the best move looking one move ahead
+ * @param {string} playerColor - Players color, either 'b' or 'w'
+ * @return {string} the best move
+ */
 var calcBestMoveOne = function(playerColor) {
   // List all possible moves
   var possibleMoves = game.moves();
@@ -41,9 +46,9 @@ var calcBestMoveOne = function(playerColor) {
   // exit if the game is over
   if (game.game_over() === true || possibleMoves.length === 0) return;
 
+  // Search for move with highest value
   var bestMoveSoFar = null;
   var bestMoveValue = Number.NEGATIVE_INFINITY;
-
   possibleMoves.forEach(function(move) {
     game.move(move);
     var moveValue = evaluateBoard(game.board(), playerColor);
