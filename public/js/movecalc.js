@@ -57,34 +57,61 @@ var calcBestMoveOne = function(playerColor) {
   return bestMoveSoFar;
 }
 
-var calcBestMoveN = function(depth, game, isMaximizingPlayer) {
-  // Base case: return current board position
+/**
+ * Calculates the best move using Minimax without Alpha Beta Pruning.
+ * @param {Number} depth - How many moves ahead to evaluate
+ * @param {Object} game - The game to evaluate
+ * @param {string} playerColor - Players color, either 'b' or 'w'
+ * @param {Boolean} isMaximizingPlayer - If current turn is maximizing or minimizing player
+ * @return {Array} The best move value, and the best move
+ */
+var calcBestMoveNoAB = function(depth, game, playerColor,
+                                isMaximizingPlayer=true) {
+  // Base case: evaluate board
   if (depth === 0) {
-    value = evaluateBoard(game.board(), game.turn());
+    value = evaluateBoard(game.board(), playerColor);
     return [value, null]
   }
 
-  var bestMove = null;
+  // Recursive case: search possible moves
+  var bestMove = null; // best move not set yet
   var possibleMoves = game.moves();
-  // Randomize possible moves
+  // Set random order for possible moves
   possibleMoves.sort(function(a, b){return 0.5 - Math.random()});
   // Set a default best move value
-  var bestMoveValue = isMaximizingPlayer ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
-  possibleMoves.forEach(function(move) {
+  var bestMoveValue = isMaximizingPlayer ? Number.NEGATIVE_INFINITY
+                                         : Number.POSITIVE_INFINITY;
+  // Search through all possible moves
+  for (var i = 0; i < possibleMoves.length; i++) {
+    var move = possibleMoves[i];
+    // Make the move, but undo before exiting loop
     game.move(move);
-    value = calcBestMoveN(depth-1, game, !isMaximizingPlayer)[0];
-    console.log(isMaximizingPlayer ? 'Max: ' : 'Min: ', depth, move,
-                value, bestMove, bestMoveValue);
-    // Assign best move if is appropriate for player position
-    if ((isMaximizingPlayer && value > bestMoveValue)
-        || (!isMaximizingPlayer && value < bestMoveValue)) {
-      bestMoveValue = value;
-      bestMove = move;
+    // Recursively get the value of this move
+    value = calcBestMoveNoAB(depth-1, game, playerColor, !isMaximizingPlayer)[0];
+    // Log the value of this move
+    console.log(isMaximizingPlayer ? 'Max: ' : 'Min: ', depth, move, value,
+                bestMove, bestMoveValue);
+
+    if (isMaximizingPlayer) {
+      // Look for moves that maximize position
+      if (value > bestMoveValue) {
+        bestMoveValue = value;
+        bestMove = move;
+      }
+    } else {
+      // Look for moves that minimize position
+      if (value < bestMoveValue) {
+        bestMoveValue = value;
+        bestMove = move;
+      }
     }
+    // Undo previous move
     game.undo();
-  });
+  }
+  // Log the best move at the current depth
   console.log('Depth: ' + depth + ' | Best Move: ' + bestMove + ' | ' + bestMoveValue);
-  return [bestMoveValue, bestMove];
+  // Return the best move, or the only move
+  return [bestMoveValue, bestMove || possibleMoves[0]];
 }
 
 /**
