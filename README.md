@@ -1,5 +1,5 @@
 # Chess AI
-A chess AI, with different iterations and increasing intelligence.
+A chess AI, with with different algorithms of increasing intelligence.
 
 Based on [Lauri Hartikka's tutorial](https://medium.freecodecamp.org/simple-chess-ai-step-by-step-1d55a9266977)
 
@@ -19,28 +19,35 @@ You can run npm's initialization to install dependencies from `package.json`.
 npm init
 ```
 
-### API
+### How to Play
 
-When playing, I recommend having your browser's console open to view the computer's logic.
+When playing, I recommend having your browser's console open to issue commands and view the computer player's 'thinking' through each move.
 
-To play against the computer, simply make a move. You will play as the white side.
+#### Play Against Computer
 
-If you'd like to have the computer play the computer, you can do so with this command in your browser's console:
+To play against the computer, simply make a move. You will play as the white side. The computer will then make a move.
+
+The computer is currently set to look 3 moves ahead using minimax with alpha beta pruning.
+
+#### Computer vs Computer
+
+If you'd like to have the computer play the computer, you can do so with this command in your browser's console, setting the algorithm you'd like to use, and each computer player's 'skill' level.
 
 ```
 playGame(algo=4, skillW=2, skillB=2)
-// algo
+// algo=
 // 1 - random
 // 2 - Best move, one move ahead
 // 3 - Best move, n moves ahead, minimax
 // 4 - Best move, n moves ahead, minimax with alpha beta pruning (Faster)
+// skillW and skillB are how many moves ahead to look
 ```
 
-`skillW` and `skillB` decide `n` for algo 3 & 4.
+`skillW` and `skillB` only work with alogs 3 & 4. The skill level is what sets how many moves ahead each player will look.
 
-Algo 3 does not use alpha beta pruning, so anything above 2 takes a long time.
+Algo 3 does not use alpha beta pruning, so setting skill levels greater than 2 will make move times very long.
 
-Algo 4 uses alpha beta pruning, so 3 moves ahead shouldn't take too long.
+Algo 4 uses alpha beta pruning, so you can set skill level up to 3, maybe even 4. But beyond that, move times will be very long.
 
 ## Deployment
 
