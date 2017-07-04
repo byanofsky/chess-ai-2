@@ -53,36 +53,33 @@ var cfg = {
 }
 board = ChessBoard('board', cfg);
 
-// Wrapper function for computer moves
+// Computer makes a move with skill/depth level
 var makeMove = function(skill=3) {
   // exit if the game is over
   if (game.game_over() === true) {
     console.log('game over');
     return;
   }
-
+  // Calculate the best move
   // var move = randomMove();
   // var move = calcBestMoveOne(game.turn());
-  // var move = calcBestMoveN(3, game, true)[1];
-  var move = calcBestMove(skill, game, game.turn())[1];
+  var move = calcBestMoveNoAB(skill, game, game.turn())[1];
+  // var move = calcBestMove(skill, game, game.turn())[1];
+  // Make the calculated move
   game.move(move);
+  // Update board positions
   board.position(game.fen());
 }
 
-var playGame = function() {
+// Computer vs Computer
+var playGame = function(skillW=2, skillB=2) {
   if (game.game_over() === true) {
     console.log('game over');
     return;
   }
-
-  var skill;
-  if (game.turn() === 'w') {
-    skill = 3;
-  } else {
-    skill = 2;
-  }
+  var skill = game.turn() === 'w' ? skillW : skillB;
   makeMove(skill);
-  window.setTimeout(playGame, 250);
+  window.setTimeout(function() {
+    playGame(skillW, skillB);
+  }, 250);
 };
-
-// playGame();
