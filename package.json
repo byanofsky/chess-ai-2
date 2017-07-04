@@ -1,6 +1,6 @@
 {
   "name": "chess-ai-2",
-  "version": "0.0.1",
+  "version": "1.0",
   "description": "A chess AI, with different iterations and increasing intelligence",
   "main": "app.js",
   "scripts": {
