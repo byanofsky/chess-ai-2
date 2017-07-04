@@ -1,6 +1,8 @@
 # Chess AI
 A chess AI, with different iterations and increasing intelligence.
 
+Based on [Lauri Hartikka's tutorial](https://medium.freecodecamp.org/simple-chess-ai-step-by-step-1d55a9266977)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development. See Deployment for notes on how to deploy the project on a live system.
@@ -62,3 +64,5 @@ Copyright 2013 Chris Oakman
 * Implement sorting function for possible moves to optimize alpha beta pruning
 * Better implementation of Express
 * Add an element of machine learning
+* Improve interface
+* Refactor code
