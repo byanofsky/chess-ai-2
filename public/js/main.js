@@ -43,9 +43,11 @@ var onSnapEnd = function() {
   board.position(game.fen());
 };
 
+// Configure board
 var cfg = {
   draggable: true,
   position: 'start',
+  // Handlers for user actions
   onChange: onChange,
   onDragStart: onDragStart,
   onDrop: onDrop,
