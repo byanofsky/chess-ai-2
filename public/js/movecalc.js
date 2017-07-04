@@ -1,4 +1,7 @@
-// Pick a random move to make
+/**
+ * Finds a random move to make
+ * @return {string} move to make
+ */
 var randomMove = function() {
   var possibleMoves = game.moves();
   var randomIndex = Math.floor(Math.random() * possibleMoves.length);
