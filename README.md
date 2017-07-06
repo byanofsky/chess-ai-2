@@ -3,6 +3,8 @@ A chess AI, with with different algorithms of increasing intelligence.
 
 Play live version here: https://bay-chess-ai.herokuapp.com/
 
+See my blog post about implementation here: https://byanofsky.com/2017/07/06/building-a-simple-chess-ai/
+
 Based on [Lauri Hartikka's tutorial](https://medium.freecodecamp.org/simple-chess-ai-step-by-step-1d55a9266977)
 
 ## Getting Started
